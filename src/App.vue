@@ -3,7 +3,7 @@ import { provide, ref } from 'vue';
 import {registerConfig} from './utils/editor-config.tsx';
 import data from './components/data.json';
 import Editor from './packages/editor.tsx';
-const formState = ref(JSON.stringify(data));
+const formState = ref(data);
 provide('config', registerConfig)
 </script>
 

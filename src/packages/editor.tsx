@@ -34,11 +34,11 @@ export default defineComponent({
         <div class="editor-container">
           <div class="editor-container-canvas">
             <div class="editor-container-canvas_content" style={containerStyles.value}>
-              {{
-                data.blocks.map((block: Record<string, any> | undefined) => {
+              {
+                data.value.blocks.map((block: Record<string, any> | undefined) => {
                   return <EditorBlock block={block} />
                 })
-              }}
+              }
             </div>
           </div>
         </div>

@@ -7,7 +7,6 @@ export default defineComponent({
     }
   },
   setup(props: any) {
-    const config = inject('config');
     const blockStyles = computed({
       get() {
         return {
@@ -18,12 +17,15 @@ export default defineComponent({
       },
       set() {}
     })
-    const component = config.componentMap[props?.block.key];
-    const RenderComponent = component.render();
-    return () => (
-      <div class="editor-block" style={blockStyles.value}>
+    const config = inject('config')
+    console.log(config.componentMap[props?.block.key])
+    
+    return () => {
+      const component = config.componentMap[props?.block.key]
+      const RenderComponent = component.render()
+      return <div class="editor-block" style={blockStyles.value}>
         {RenderComponent}
       </div>
-    )
+    }
   }
 })
