@@ -18,7 +18,6 @@ export default defineComponent({
       set() {}
     })
     const config = inject('config')
-    console.log(config.componentMap[props?.block.key])
     
     return () => {
       const component = config.componentMap[props?.block.key]

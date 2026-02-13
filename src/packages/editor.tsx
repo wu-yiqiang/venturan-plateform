@@ -1,6 +1,9 @@
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, inject } from 'vue'
 import './editor.scss'
 import EditorBlock from './editor-block'
+import EditorTop from './components/editTopbar/index.vue'
+import EditMaterial from './components/editMaterial/index.tsx'
+import EditAttrpannel from './components/editAttrPannel/index.tsx'
 export default defineComponent({
   props: {
     value: {
@@ -25,24 +28,24 @@ export default defineComponent({
       },
       set() {}
     })
-    console.log('ss', data.value)
+    const config = inject('config')
     return () => (
-      <div class="editor">
-        <div class="editor-left">左侧物料区</div>
-        <div class="editor-top">菜单栏</div>
-        <div class="editor-right">属性控制栏</div>
-        <div class="editor-container">
-          <div class="editor-container-canvas">
-            <div class="editor-container-canvas_content" style={containerStyles.value}>
-              {
-                data.value.blocks.map((block: Record<string, any> | undefined) => {
+      <>
+        <EditorTop />
+        <div class="editor">
+          <EditMaterial componentList={config.componentList} />
+          <div class="editor-container">
+            <div class="editor-container-canvas">
+              <div class="editor-container-canvas_content" style={containerStyles.value}>
+                {data.value.blocks.map((block: Record<string, any> | undefined) => {
                   return <EditorBlock block={block} />
-                })
-              }
+                })}
+              </div>
             </div>
           </div>
+          <EditAttrpannel />
         </div>
-      </div>
+      </>
     )
   }
 })
