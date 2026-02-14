@@ -14,4 +14,9 @@ provide('config', registerConfig)
 </template>
 
 <style scoped lang="scss">
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 </style>
