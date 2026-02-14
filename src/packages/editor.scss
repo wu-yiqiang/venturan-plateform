@@ -1,21 +1,26 @@
-
 .editor {
   display: flex;
   justify-content: space-between;
-  // column-gap: 20px;
   padding: 14px;
   flex: 1;
+  overflow: hidden;
   &-container {
     height: 100%;
+    width: inherit;
     box-sizing: border-box;
+    overflow: hidden;
     &-canvas {
-      overflow: scroll;
+      overflow: auto;
+      overflow-x: hidden;
       height: 100%;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
       &_content {
-        margin: 20px auto;
-        background-color: yellow;
+        background-color: #fff;
         position: relative;
-        color: red;
+        border-radius: 4px;
+        padding: 14px;
       }
     }
   }

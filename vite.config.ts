@@ -1,11 +1,19 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import AutoImport from 'unplugin-auto-import/vite'
+
 import { resolve } from 'node:path';
 
 export default defineConfig({
   plugins: [vue(), vueJsx(),
-   
+    AutoImport({
+      imports: ['vue', 'vue-router'],
+      dts: "src/auto-import.d.ts",
+      eslintrc: {
+        enabled: true
+      }
+    })
   ],
   resolve: {
     // extensions: ['.js', '.vue', '.json', 'scss', '.ts'],

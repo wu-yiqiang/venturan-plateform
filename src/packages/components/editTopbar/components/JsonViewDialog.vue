@@ -27,7 +27,6 @@
 import jsonData from './jsonData.json';
 import VueJsonPretty from 'vue-json-pretty'
 import 'vue-json-pretty/lib/styles.css'
-import { computed, ref } from 'vue'
 const emit = defineEmits(['update:visible']);
 const props = defineProps({
   visible: {

@@ -44,6 +44,7 @@
     </div>
     <div class="right-actions">
       <el-button type="primary">保存</el-button>
+      <el-button type="primary">发布</el-button>
     </div>
   </section>
   <JsonViewDialog v-model:visible="dialogVisible" />

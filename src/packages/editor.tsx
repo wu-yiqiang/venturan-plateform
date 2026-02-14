@@ -1,9 +1,9 @@
 import { computed, defineComponent, inject } from 'vue'
-import './editor.scss'
-import EditorBlock from './editor-block'
-import EditorTop from './components/editTopbar/index.vue'
-import EditMaterial from './components/editMaterial/index.tsx'
 import EditAttrpannel from './components/editAttrPannel/index.tsx'
+import EditMaterial from './components/editMaterial/index.vue'
+import EditorTop from './components/editTopbar/index.vue'
+import EditorBlock from './editor-block'
+import './editor.scss'
 export default defineComponent({
   props: {
     value: {
