@@ -2,14 +2,12 @@
 import { Film, TrendCharts } from '@element-plus/icons-vue';
 import CommonComponents from '@/packages/components/CommonComponents/index.vue'
 import CustomComponents from '@/packages/components/CustomComponents/index.vue'
-import { provide, ref } from 'vue';
-// import { registerConfig } from './utils/editor-config.tsx';
-// import data from './components/data.json';
-// import Editor from './packages/editor.tsx';
-// const formState = ref(data);
+import { ref } from 'vue';
 enum ComponentType {
     Common = 'Common',
-    Custom = 'Custom'
+    Custom = 'Custom',
+    Chart= 'Chart',
+    Other = 'Other'
 }
 const type = ref(ComponentType.Common)
 // provide('config', registerConfig)
@@ -33,22 +31,40 @@ const type = ref(ComponentType.Common)
                         </el-icon>
                     </el-tooltip>
                 </el-radio-button>
+                <el-radio-button :value="ComponentType.Chart">
+                     <el-tooltip effect="light" content="图表组件" placement="top">
+                        <el-icon :size="16">
+                            <TrendCharts />
+                        </el-icon>
+                    </el-tooltip>
+                </el-radio-button>
+                <el-radio-button :value="ComponentType.Other">
+                     <el-tooltip effect="light" content="其他组件" placement="top">
+                        <el-icon :size="16">
+                            <TrendCharts />
+                        </el-icon>
+                    </el-tooltip>
+                </el-radio-button>
+                <el-radio-button :value="ComponentType.Other">
+                     <el-tooltip effect="light" content="其他组件" placement="top">
+                        <el-icon :size="16">
+                            <TrendCharts />
+                        </el-icon>
+                    </el-tooltip>
+                </el-radio-button>
             </el-radio-group>
+
         </div>
         <div class="editContent">
             <CommonComponents v-if="type === ComponentType.Common" />
             <CustomComponents v-if="type === ComponentType.Custom" />
         </div>
-        <!-- <div v-for="(component, index) in config?.componentsList" :key="index" class="component-item" draggable @dragstart="(e) => dragstart(e, component)">
-            <span>{{component.label}}</span>
-            <span>{{component.preview()}}</span>
-            </div> -->
     </section>
 </template>
 
 <style scoped lang="scss">
 .editMaterial {
-    width: 300px;
+    width: 270px;
     height: inherit;
     background-color: #fff;
     display: flex;

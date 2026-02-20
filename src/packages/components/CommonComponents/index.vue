@@ -1,16 +1,20 @@
 <script setup lang="ts">
+import LayoutComponents from './LayoutComponents/index.vue'
+import BasicComponents from './BasicComponents/index.vue'
+import ContainerComponents from './ContainerComponents/index.vue'
 </script>
 
 <template>
     <section class="CommonComponents">
-       通用组件库
-       （容器组件 布局组件 基础组件 高级组件 ）
-       https://form.making.link/v3/sample/#/
+        <LayoutComponents />
+        <ContainerComponents />
+        <BasicComponents />
     </section>
 </template>
 
 <style scoped lang="scss">
 .CommonComponents {
-  
+display: grid;
+row-gap: 14px;  
 }
 </style>

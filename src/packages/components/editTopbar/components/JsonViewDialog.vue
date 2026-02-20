@@ -15,8 +15,9 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button @click="open = false">Cancel</el-button>
+        <el-button type="primary" plain>Copy</el-button>
         <el-button type="primary" @click="open = false">
-          Confirm
+          Save
         </el-button>
       </div>
     </template>
