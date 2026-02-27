@@ -2,13 +2,15 @@
 import LayoutComponents from './LayoutComponents/index.vue'
 import BasicComponents from './BasicComponents/index.vue'
 import ContainerComponents from './ContainerComponents/index.vue'
+const value = defineModel()
+
 </script>
 
 <template>
     <section class="CommonComponents">
         <LayoutComponents />
         <ContainerComponents />
-        <BasicComponents />
+        <BasicComponents v-model:value="value" />
     </section>
 </template>
 

@@ -10,21 +10,32 @@ export default defineComponent({
     const blockStyles = computed({
       get() {
         return {
-          top: props?.block.top,
-          left: props?.block.left,
+          top: props?.block.top + 'px',
+          left: props?.block.left+ 'px',
           zIndex: props?.block.zIndex
         }
       },
       set() {}
     })
     const config = inject('config')
-    
+    const blockRef = ref(null)
+    onMounted(() => {
+      const { offsetWidth, offsetHeight } = blockRef.value
+      if (props?.block?.alignCenter) {
+        props.block.left = (props?.block.left - offsetWidth / 2)
+        props.block.top = (props?.block.top - offsetHeight / 2)
+        props.block.alignCenter = false
+        console.log('sss', props.block.left)
+      }
+    })
     return () => {
       const component = config.componentMap[props?.block.key]
       const RenderComponent = component.render()
-      return <div class="editor-block" style={blockStyles.value}>
-        {RenderComponent}
-      </div>
+      return (
+        <div ref={blockRef} class="editor-block" style={blockStyles.value}>
+          {RenderComponent}
+        </div>
+      )
     }
   }
 })

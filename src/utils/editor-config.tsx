@@ -1,15 +1,19 @@
 import { ElButton, ElInput } from 'element-plus'
-import { COMPONENTTYPE } from '../common/const'
 import { Tickets } from '@element-plus/icons-vue/global'
+import type { ComponentType } from './type'
+import  { ComponentTypeEnum } from '../common/const'
 
+type componentMapType = {
+  [K in ComponentTypeEnum]?: ComponentType
+}
 
 const createEditorConfig = () => {
   let componentsList: any[] = []
-  let componentMap = {}
+  let componentMap: componentMapType = {}
   return {
     componentsList,
     componentMap,
-    register: (component: any) => {
+    register: (component: ComponentType) => {
       componentsList.push(component)
       componentMap[component.key] = component
     }
@@ -26,7 +30,7 @@ registerConfig.register({
   ),
   preview: () => '预览文本',
   render: () => '渲染文本',
-  key: COMPONENTTYPE.TEXT
+  key: ComponentTypeEnum.TEXT
 })
 
 registerConfig.register({
@@ -38,7 +42,7 @@ registerConfig.register({
   ),
   preview: () => <ElButton>预览按钮</ElButton>,
   render: () => <ElButton>渲染按钮</ElButton>,
-  key: COMPONENTTYPE.BUTTON
+  key: ComponentTypeEnum.BUTTON
 })
 
 registerConfig.register({
@@ -50,7 +54,7 @@ registerConfig.register({
   ),
   preview: () => <ElInput placeholder="预览输入框" />,
   render: () => <ElInput placeholder="渲染输入框" />,
-  key: COMPONENTTYPE.INPUT
+  key: ComponentTypeEnum.INPUT
 })
 
 
@@ -64,7 +68,7 @@ export const basicComponents = [
     ),
     preview: () => '预览文本',
     render: () => '渲染文本',
-    key: COMPONENTTYPE.TEXT
+    key: ComponentTypeEnum.TEXT
   },
   {
     label: '按钮',
@@ -75,7 +79,7 @@ export const basicComponents = [
     ),
     preview: () => <ElButton>预览按钮</ElButton>,
     render: () => <ElButton>渲染按钮</ElButton>,
-    key: COMPONENTTYPE.BUTTON
+    key: ComponentTypeEnum.BUTTON
   },
   {
     label: '输入框',
@@ -86,6 +90,6 @@ export const basicComponents = [
     ),
     preview: () => <ElInput placeholder="预览输入框" />,
     render: () => <ElInput placeholder="渲染输入框" />,
-    key: COMPONENTTYPE.INPUT
+    key: ComponentTypeEnum.INPUT
   }
 ]
