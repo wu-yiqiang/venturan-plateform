@@ -85,16 +85,13 @@ const type = ref(ComponentTypeEnum.Common)
     row-gap: 10px;
     padding: 14px;
     border-radius: 4px;
-
     .editCategory {
-        position: fixed;
+        position: sticky;
         background-color: #fff;
     }
 
     .editContent {
-        margin-top: 50px;
         overflow: auto;
-
         .component-item {
             display: grid;
             place-content: center;

@@ -23,6 +23,7 @@ a:hover {
 
 body {
   margin: 0;
+  height: 100vh;
   background-color: rgb(227, 227, 227);
 }
 
@@ -49,14 +50,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.card {
-  /* padding: 2em; */
-}
 
 #app {
   margin: 0 auto;
   background-color: rgb(243, 243, 245);
-  height: 100vh;
+  height: 100%;
 }
 
 @media (prefers-color-scheme: light) {

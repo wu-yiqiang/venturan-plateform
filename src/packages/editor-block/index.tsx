@@ -25,8 +25,10 @@ export default defineComponent({
         props.block.left = (props?.block.left - offsetWidth / 2)
         props.block.top = (props?.block.top - offsetHeight / 2)
         props.block.alignCenter = false
-        console.log('sss', props.block.left)
       }
+      props.block.width = offsetWidth
+      props.block.height = offsetHeight
+      console.log('he', props.block)
     })
     return () => {
       const component = config.componentMap[props?.block.key]
