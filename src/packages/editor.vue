@@ -6,7 +6,10 @@
       <div class="editor-container-canvas">
         <div class="editor-container-canvas_content" :style=containerStyles @mousedown="containerMouseDown">
           <EditorBlock v-for="(block, index) in data?.blocks" :block="block" :key="index"
-            :class="block?.focus ? 'editor-block-focus' : ''" @mousedown="(e: Event) => blockMousedown(e, block)" />
+            :class="block?.focus ? 'editor-block-focus' : ''"
+            @mousedown="(e: Event) => blockMousedown(e, block, index)" />
+          <div v-if="markLine?.x" class="line-x" :style="{ left: markLine?.x + 'px' }"></div>
+          <div v-if="markLine?.y" class="line-y" :style="{ top: markLine?.y + 'px' }"></div>
         </div>
       </div>
     </div>
@@ -36,24 +39,49 @@ const data = computed({
 const containerStyles = computed({
   get() {
     return {
-      width: props?.value.container.width,
-      height: props?.value.container.height
+      width: props?.value.container.width+'px',
+      height: props?.value.container.height+'px'
     }
   },
   set() { }
 })
-const { blockMousedown,containerMouseDown,focusData } = useBlockFocus(data, (e: Event) => {mousedown(e)})
+const { blockMousedown, containerMouseDown, focusData, lastSelectBlock } = useBlockFocus(data, (e: Event) => { mousedown(e) })
 const config = inject('config')
 let dragState = {
   startX: 0,
   startY: 0,
   startPosition: []
 }
+let markLine = ref({
+  x: null,
+  y: null
+})
 const mousedown = (e: Event) => {
+  const { width: BWidth, height: BHeight } = lastSelectBlock.value
   dragState = {
     startX: e?.clientX,
     startY: e?.clientY,
-    startPosition: focusData.value.focus?.map(({ top, left }) => ({ top, left }))
+    startLeft: lastSelectBlock.value.left,
+    startTop: lastSelectBlock.value.top,
+    startPosition: focusData.value.focus?.map(({ top, left }) => ({ top, left })),
+    lines: (() => {
+      const { unFocus } = focusData.value
+      let lines = { x: [], y: [] }
+      unFocus.forEach((block) => {
+        const { top: ATop, left: ALeft, width: AWidth, height: AHeight } = block
+        lines.y.push({ showTop: ATop, top: ATop })
+        lines.y.push({ showTop: ATop, top: ATop - BHeight })
+        lines.y.push({ showTop: ATop + AHeight / 2, top: ATop + AHeight / 2 - BHeight / 2 })
+        lines.y.push({ showTop: ATop + AHeight, top: ATop + AHeight })
+        lines.y.push({ showTop: ATop + AHeight, top: ATop + AHeight - BHeight })
+        lines.x.push({ showLeft: ALeft, left: ALeft })
+        lines.x.push({ showLeft: ALeft + AWidth, left: ALeft + AWidth })
+        lines.x.push({ showLeft: ALeft + AWidth / 2, left: ALeft + AWidth / 2 - BWidth })
+        lines.x.push({ showLeft: ALeft + AWidth, left: ALeft + AWidth - BWidth })
+        lines.x.push({ showLeft: ALeft, left: ALeft - BWidth })
+      })
+      return lines
+    })()
   }
   document.addEventListener('mousemove', mousemove)
   document.addEventListener('mouseup', mouseup)
@@ -62,10 +90,34 @@ const mousedown = (e: Event) => {
 const mouseup = (e: Event) => {
   document.removeEventListener('mousemove', mousemove)
   document.removeEventListener('mouseup', mouseup)
+  markLine.value.x = null
+  markLine.value.y= null
 
 }
 const mousemove = (e: Event) => {
   let { clientX: moveX, clientY: moveY } = e
+  const left = moveX - dragState.startX + dragState.startLeft
+  const top = moveY - dragState.startY + dragState.startTop
+  let y = null
+  let x = null
+  for (let i = 0; i < dragState.lines.y.length; i++) {
+    const { top: t, showTop: s } = dragState.lines.y[i];
+    if (Math.abs(t - top) < 5) {
+      y = s
+      moveY = dragState.startY - dragState.startTop + t
+      break
+    }
+  }
+  for (let j = 0; j < dragState.lines.x.length; j++) {
+    const { left: l, showLeft: s } = dragState.lines.x[j];
+    if (Math.abs(l - left) < 5) {
+      x = s
+      moveX = dragState.startX - dragState.startLeft + l
+      break
+    }
+  }
+  markLine.value.x = x;
+  markLine.value.y = y;
   let durX = moveX - dragState.startX
   let durY = moveY - dragState.startY
   focusData.value.focus?.forEach((block: any, index: number) => {
@@ -90,21 +142,17 @@ const mousemove = (e: Event) => {
     width: inherit;
     box-sizing: border-box;
     overflow: hidden;
-
     &-canvas {
       overflow: auto;
       overflow-x: hidden;
       height: 100%;
       -ms-overflow-style: none;
-      /* IE and Edge */
       scrollbar-width: none;
-
       &_content {
         background-color: #fff;
         position: relative;
         border-radius: 4px;
         padding: 14px;
-
         .editor-block {
           &::after {
             content: '';
@@ -114,14 +162,26 @@ const mousemove = (e: Event) => {
             opacity: 0.2;
           }
         }
-
         .editor-block-focus {
           &::after {
             border-radius: 2px;
             border: 2px dashed red;
           }
         }
+        .line-x {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          border-left: 1px solid red;
+        }
+        .line-y {
+          position: absolute;
+          left: 0;
+          right: 0;
+          border-top: 1px solid red;
+        }
       }
+
     }
   }
 }

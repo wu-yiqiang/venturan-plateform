@@ -1,10 +1,14 @@
 export const useBlockFocus = (data: any[], callback: Function) => {
+    const selectedIndex = ref(-1)
+  const lastSelectBlock = computed(() => {
+    return data.value?.blocks[selectedIndex.value]
+  })
   const clearBlocksFocus = () => {
     data.value?.blocks?.forEach((block: any) => {
       block.focus = false
     })
   }
-  const blockMousedown = (e: Event, block: any) => {
+  const blockMousedown = (e: Event, block: any, index: number) => {
     e.preventDefault()
     e.stopPropagation()
     if (e?.shiftKey) {
@@ -19,6 +23,7 @@ export const useBlockFocus = (data: any[], callback: Function) => {
         block.focus = true
       }
     }
+    selectedIndex.value = index
     callback(e)
   }
   const focusData = computed(() => {
@@ -33,11 +38,13 @@ export const useBlockFocus = (data: any[], callback: Function) => {
     }
   })
   const containerMouseDown = () => {
+        selectedIndex.value = -1
     clearBlocksFocus()
   }
   return {
     blockMousedown,
     containerMouseDown,
-    focusData
+    focusData,
+    lastSelectBlock
   }
 }
