@@ -1,5 +1,5 @@
 <template>
-  <EditorTop />
+  <EditorTop @withdraw="handleWithDraw" @export="handleExport" @import="handleImport"/>
   <div class="editor">
     <EditMaterial :componentList="config?.componentList" v-model="data" />
     <div class="editor-container">
@@ -15,8 +15,12 @@
     </div>
     <EditAttrpannel />
   </div>
+  <JsonViewDialog v-model:visible="exportVisible" :jsonDatas="jsonDatas" />
+  <JsonEditDialog v-model:visible="importVisible" />
 </template>
 <script lang="ts" setup>
+import JsonViewDialog from './components/editTopbar/components/JsonViewDialog.vue';
+import JsonEditDialog from './components/editTopbar/components/JsonEditDialog.vue';
 import EditAttrpannel from './components/editAttrPannel/index.tsx'
 import EditMaterial from './components/editMaterial/index.vue'
 import EditorTop from './components/editTopbar/index.vue'
@@ -28,6 +32,9 @@ const props = defineProps({
     type: Object
   }
 })
+const exportVisible = ref(false)
+const importVisible = ref(false)
+const jsonDatas = ref('')
 const data = computed({
   get() {
     return props?.value
@@ -126,7 +133,18 @@ const mousemove = (e: Event) => {
   })
 }
 
+const handleWithDraw = () => {
+  
+}
 
+const handleExport = () => {
+  jsonDatas.value = data?.value ?? ''
+  exportVisible.value = true
+}
+
+const handleImport = () => {
+  importVisible.value = true
+}
 
 </script>
 <style lang="scss" scoped>

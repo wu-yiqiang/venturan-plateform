@@ -1,3 +1,5 @@
+import { events } from "../../utils/event"
+
 export const useMenuDragger = (containerRef: Ref, data: Ref) => {
   const currentComponent = ref(null)
   const dragenter = (e: { dataTransfer: { dropEffect: string } }) => {
@@ -14,6 +16,7 @@ export const useMenuDragger = (containerRef: Ref, data: Ref) => {
     containerRef.value.removeEventListener('dragover', dragover)
     containerRef.value.removeEventListener('dragleave', dragleave)
     containerRef.value.removeEventListener('drop', drop)
+    events.emit('end')
   }
   const drop = (e: { offsetY: any; offsetX: any }) => {
     let blocks = data?.value.blocks
@@ -38,6 +41,7 @@ export const useMenuDragger = (containerRef: Ref, data: Ref) => {
     containerRef.value.addEventListener('dragleave', dragleave)
     containerRef.value.addEventListener('drop', drop)
     currentComponent.value = component
+    events.emit('start')
   }
   return {
     dragstart,

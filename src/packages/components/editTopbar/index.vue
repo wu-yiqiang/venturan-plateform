@@ -25,20 +25,23 @@
     </div>
     <div class="middle-actions">
       <el-space>
-        <el-tooltip effect="light" content="编辑" placement="bottom">
-          <el-button :icon="EditPen" circle  @click="dialogVisible = true"/>
+        <el-tooltip effect="light" content="导入" placement="bottom">
+          <el-button :icon="EditPen" circle @click="handleOpeartion('import')" />
         </el-tooltip>
-        <el-tooltip effect="light" content="复制" placement="bottom">
-          <el-button :icon="CopyDocument" circle />
+        <el-tooltip effect="light" content="导出" placement="bottom">
+          <el-button :icon="Download" circle  @click="handleOpeartion('export')" />
         </el-tooltip>
+        <!-- <el-tooltip effect="light" content="复制" placement="bottom">
+          <el-button :icon="CopyDocument" circle @click="handleOpeartion('copy')" />
+        </el-tooltip> -->
         <el-tooltip effect="light" content="撤销" placement="bottom">
-          <el-button :icon="Back" circle />
+          <el-button :icon="Back" circle @click="handleOpeartion('withdraw')" />
         </el-tooltip>
         <el-tooltip effect="light" content="刷新" placement="bottom">
-          <el-button :icon="RefreshLeft" circle />
+          <el-button :icon="RefreshLeft" circle @click="handleOpeartion('flush')" />
         </el-tooltip>
         <el-tooltip effect="light" content="查看" placement="bottom">
-          <el-button :icon="View" circle />
+          <el-button :icon="View" circle @click="handleOpeartion('view')" />
         </el-tooltip>
       </el-space>
     </div>
@@ -47,16 +50,17 @@
       <el-button type="primary">发布</el-button>
     </div>
   </section>
-  <JsonViewDialog v-model:visible="dialogVisible" />
 </template>
 <script lang="ts" setup>
-import JsonViewDialog from './components/JsonViewDialog.vue';
-import { Back, CopyDocument, Edit, RefreshLeft, EditPen, View, Select } from '@element-plus/icons-vue';
+import { Back, CopyDocument, Edit, RefreshLeft, EditPen, View, Select, Download } from '@element-plus/icons-vue';
 import { ref } from 'vue';
+const emit = defineEmits(['copy', 'withdraw', 'flush', 'view', 'export', 'import'])
 const editable = ref(false)
 const fileName = ref('demo1')
-const dialogVisible = ref(false)
 const handleBack = () => { }
+const handleOpeartion = (operation: string) => {
+  emit(operation)
+}
 </script>
 <style lang="scss" scoped>
 .editor-top {

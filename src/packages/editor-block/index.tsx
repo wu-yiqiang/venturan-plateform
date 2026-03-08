@@ -28,7 +28,6 @@ export default defineComponent({
       }
       props.block.width = offsetWidth
       props.block.height = offsetHeight
-      console.log('he', props.block)
     })
     return () => {
       const component = config.componentMap[props?.block.key]
