@@ -190,20 +190,20 @@ const handleImport = () => {
         .editor-block-focus {
           &::after {
             border-radius: 2px;
-            border: 2px dashed red;
+            border: 2px dashed #409EFF;
           }
         }
         .line-x {
           position: absolute;
           top: 0;
           bottom: 0;
-          border-left: 1px solid red;
+          border-left: 1px solid #409EFF;
         }
         .line-y {
           position: absolute;
           left: 0;
           right: 0;
-          border-top: 1px solid red;
+          border-top: 1px solid #409EFF;
         }
       }
 

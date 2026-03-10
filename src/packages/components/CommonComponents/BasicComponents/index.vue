@@ -44,7 +44,7 @@ onMounted(() => {
 .BasicComponents {
   .components {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     border-radius: 4px;
 
@@ -53,16 +53,19 @@ onMounted(() => {
       flex-direction: column;
       align-items: center;
       cursor: move;
-      padding: 10px;
+      padding: 6px;
       border-radius: 4px;
       background-color: #f3f3f3;
       border: 1px dashed transparent;
-
+      overflow: hidden;
       &:hover {
         border: 1px dashed #409EFF;
       }
 
       .component-label {
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
