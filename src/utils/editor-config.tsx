@@ -1,4 +1,4 @@
-import { ElButton, ElInput } from 'element-plus'
+import { ElButton, ElInput, ElSelect } from 'element-plus'
 import { Tickets } from '@element-plus/icons-vue/global'
 import type { ComponentType } from './type'
 import  { ComponentTypeEnum } from '../common/const'
@@ -30,7 +30,10 @@ registerConfig.register({
   ),
   preview: () => '预览文本',
   render: () => '渲染文本',
-  key: ComponentTypeEnum.TEXT
+  key: ComponentTypeEnum.TEXT,
+  props: {
+
+  }
 })
 
 registerConfig.register({
@@ -42,7 +45,8 @@ registerConfig.register({
   ),
   preview: () => <ElButton>预览按钮</ElButton>,
   render: () => <ElButton>渲染按钮</ElButton>,
-  key: ComponentTypeEnum.BUTTON
+  key: ComponentTypeEnum.BUTTON,
+  props: {}
 })
 
 registerConfig.register({
@@ -54,8 +58,24 @@ registerConfig.register({
   ),
   preview: () => <ElInput placeholder="预览输入框" />,
   render: () => <ElInput placeholder="渲染输入框" />,
-  key: ComponentTypeEnum.INPUT
+  key: ComponentTypeEnum.INPUT,
+  props: {}
 })
+
+registerConfig.register(
+ {
+    label: '选择器',
+    icon: () => (
+      <el-icon size="20">
+        <Tickets />
+      </el-icon>
+    ),
+    preview: () => <ElSelect placeholder="预览选择器" />,
+    render: () => <ElSelect placeholder="渲染选择器" />,
+    key: ComponentTypeEnum.SELECT,
+    props: {}
+  }
+)
 
 
 export const basicComponents = [
@@ -68,7 +88,8 @@ export const basicComponents = [
     ),
     preview: () => '预览文本',
     render: () => '渲染文本',
-    key: ComponentTypeEnum.TEXT
+    key: ComponentTypeEnum.TEXT,
+    props: {}
   },
   {
     label: '按钮',
@@ -79,7 +100,8 @@ export const basicComponents = [
     ),
     preview: () => <ElButton>预览按钮</ElButton>,
     render: () => <ElButton>渲染按钮</ElButton>,
-    key: ComponentTypeEnum.BUTTON
+    key: ComponentTypeEnum.BUTTON,
+    props: {}
   },
   {
     label: '输入框',
@@ -90,6 +112,19 @@ export const basicComponents = [
     ),
     preview: () => <ElInput placeholder="预览输入框" />,
     render: () => <ElInput placeholder="渲染输入框" />,
-    key: ComponentTypeEnum.INPUT
+    key: ComponentTypeEnum.INPUT,
+    props: {}
+  },
+  {
+    label: '选择器',
+    icon: () => (
+      <el-icon size="20">
+        <Tickets />
+      </el-icon>
+    ),
+    preview: () => <ElSelect placeholder="预览选择器" />,
+    render: () => <ElSelect placeholder="渲染选择器" />,
+    key: ComponentTypeEnum.SELECT,
+    props: {}
   }
 ]

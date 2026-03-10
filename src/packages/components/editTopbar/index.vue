@@ -52,7 +52,7 @@
   </section>
 </template>
 <script lang="ts" setup>
-import { Back, CopyDocument, Edit, RefreshLeft, EditPen, View, Select, Download } from '@element-plus/icons-vue';
+import { Back, Edit, RefreshLeft, EditPen, View, Select, Download } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 const emit = defineEmits(['copy', 'withdraw', 'flush', 'view', 'export', 'import'])
 const editable = ref(false)

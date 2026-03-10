@@ -6,4 +6,5 @@ export interface ComponentType {
   preview: any
   render: any
   key: `${ComponentTypeEnum}`
+  props: object
 }

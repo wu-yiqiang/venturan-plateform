@@ -1,5 +1,5 @@
 <template>
-  <EditorTop @withdraw="handleWithDraw" @export="handleExport" @import="handleImport"/>
+  <EditorTop @withdraw="handleWithDraw" @export="handleExport" @import="handleImport" @view="handleView"/>
   <div class="editor">
     <EditMaterial :componentList="config?.componentList" v-model="data" />
     <div class="editor-container">
@@ -17,6 +17,7 @@
   </div>
   <JsonViewDialog v-model:visible="exportVisible" :jsonDatas="jsonDatas" />
   <JsonEditDialog v-model:visible="importVisible" />
+  <ViewDailog  v-model:visible="viewVisible" :jsonDatas="jsonDatas" />
 </template>
 <script lang="ts" setup>
 import JsonViewDialog from './components/editTopbar/components/JsonViewDialog.vue';
@@ -25,6 +26,7 @@ import EditAttrpannel from './components/editAttrPannel/index.tsx'
 import EditMaterial from './components/editMaterial/index.vue'
 import EditorTop from './components/editTopbar/index.vue'
 import EditorBlock from './editor-block'
+import ViewDailog from './components/editTopbar/components/ViewDailog.vue';
 import { useBlockFocus } from './hooks/useBlockFocus.ts'
 const emit = defineEmits(['update:value'])
 const props = defineProps({
@@ -34,6 +36,7 @@ const props = defineProps({
 })
 const exportVisible = ref(false)
 const importVisible = ref(false)
+const viewVisible = ref(false)
 const jsonDatas = ref('')
 const data = computed({
   get() {
@@ -135,6 +138,10 @@ const mousemove = (e: Event) => {
 
 const handleWithDraw = () => {
   
+}
+const handleView = () => {
+  jsonDatas.value = data?.value ?? ''
+  viewVisible.value = true
 }
 
 const handleExport = () => {

@@ -1,5 +1,6 @@
 export enum ComponentTypeEnum {
   TEXT = 'text',
   BUTTON = 'button',
-  INPUT = 'input'
+  INPUT = 'input',
+  SELECT= 'select'
 }
